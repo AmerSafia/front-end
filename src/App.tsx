@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AppRoutes from "./router";
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
+type Props = {};
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = (props: Props) => {
+  return  (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+    <AppRoutes />
+  </ThemeProvider>
+  )
+};
 
 export default App;

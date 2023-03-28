@@ -200,18 +200,33 @@ export default function GmailTreeView() {
           labelIcon: PriceCheckIcon,
           link: "expense/expenses",
         },
+      ],
+    },
+    {
+      nodeId: "10",
+      labelText: "Hr",
+      labelIcon: SupervisorAccountIcon,
+      subTree: [
         {
-          nodeId: "6-3",
-          labelText: "Expenses",
-          labelIcon: PriceCheckIcon,
-          subTree: [
-            {
-              nodeId: "6-2",
-              labelText: "Expenses",
-              labelIcon: PriceCheckIcon,
-              link: "expense/expenses",
-            },
-          ],
+          nodeId: "10-1",
+          labelText: "Employees",
+          labelIcon: SupervisorAccountIcon,
+          link: "hr/employees",
+          subTree: [],
+        },
+        {
+          nodeId: "10-2",
+          labelText: "Salary",
+          labelIcon: SupervisorAccountIcon,
+          link: "hr/salary",
+          subTree: [],
+        },
+        {
+          nodeId: "10-3",
+          labelText: "Salary Payment",
+          labelIcon: SupervisorAccountIcon,
+          link: "hr/salary/payment",
+          subTree: [],
         },
       ],
     },
@@ -236,20 +251,12 @@ export default function GmailTreeView() {
       link: "brand",
       subTree: [],
     },
-    {
-      nodeId: "10",
-      labelText: "Employees",
-      labelIcon: SupervisorAccountIcon,
-      link: "employees",
-      subTree: [],
-    },
   ] as Tree[];
 
   const SubtreeItem = (item: Tree) => {
     return (
-      <Link to={item.link} style={{ textDecoration: "none" }}>
+      <Link to={item.link} style={{ textDecoration: "none" }} key={item.nodeId}>
         <StyledTreeItem
-          key={item.nodeId}
           nodeId={item.nodeId}
           labelText={item.labelText}
           labelIcon={item.labelIcon}
@@ -273,7 +280,7 @@ export default function GmailTreeView() {
 
   const treeMapper = (tree: Tree[]) => {
     return tree.map((item) => {
-      if (item.subTree) {
+      if (item.subTree?.length) {
         return maintreeItem(item);
       } else {
         return SubtreeItem(item);

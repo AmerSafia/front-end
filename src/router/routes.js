@@ -17,6 +17,8 @@ import MobileStore from "../pages/Mobiles/MobileStore";
 import SignIn from "../pages/SignIn";
 import Users from "../pages/Users";
 import Expenses from "../pages/expense/Expenses";
+import Salary from "../pages/HR/Salary";
+import SalaryPayment from "../pages/HR/SalaryPayment";
 
 const routes = [
   {
@@ -97,6 +99,23 @@ const routes = [
         ]
       },
       {
+        path: "hr",
+        children: [
+          {
+            path: "salary",
+            element: <Salary />,
+          },
+          {
+            path: "salary/payment",
+            element: <SalaryPayment />,
+          },
+          {
+            path: "employees",
+            element: <Employees />,
+          },
+        ]
+      },
+      {
         path: "brand",
         element: <Brand />,
       },
@@ -104,10 +123,7 @@ const routes = [
         path: "daily-sales",
         element: <DailySales />,
       },
-      {
-        path: "employees",
-        element: <Employees />,
-      },
+
       {
         path: "distributors",
         element: <Distributors />,

@@ -1,17 +1,20 @@
-import { Button } from "@mui/material";
+import { Button, DialogActions, DialogContent } from "@mui/material";
 import { MRT_ColumnDef } from "material-react-table";
 import DataTable from "../components/dashboard/common/DataTable";
+import { useState } from "react";
+import Modal from "../components/dashboard/common/Modal";
+import { FormContainer, TextFieldElement } from "react-hook-form-mui";
 
 type Props = {};
 
-interface Distributor {
+interface DistributorType {
   distributor_name: string;
   website: string;
   mobile_number: number;
   location: string;
   brand_name_id: string;
 }
-const data: Distributor[] = [
+const data: DistributorType[] = [
   {
     distributor_name: "Ahmed",
     website: "test",
@@ -40,21 +43,93 @@ const columns = [
   {
     header: "brand_name_id",
     accessorKey: "brand_name_id", //using accessorKey dot notation to access nested data
-    
   },
-] as Array<MRT_ColumnDef<Distributor>>;
+] as Array<MRT_ColumnDef<DistributorType>>;
 
 const Distributors = (props: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const formData = (data: DistributorType) => {
+    console.log(data);
+
+    // data;
+  };
   return (
     <>
+      <Modal
+        title="Add New Distributor"
+        isOpen={isOpen}
+        close={() => {
+          setIsOpen(false);
+        }}
+      >
+        <DialogContent>
+          <FormContainer onSuccess={(data: DistributorType) => formData(data)}>
+            <TextFieldElement
+              name="distributor_name"
+              label="distributor name"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <TextFieldElement
+              name="mobile_number"
+              label="mobile number"
+              type="number"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <TextFieldElement
+              name="location"
+              label="location"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <TextFieldElement
+              name="brand_name_id"
+              label="brand name id"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <TextFieldElement
+              name="website"
+              label="website"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <DialogActions>
+              <Button color="secondary" variant="contained" type="submit">
+                Save
+              </Button>
+              <Button
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </FormContainer>
+        </DialogContent>
+      </Modal>
 
-      <DataTable 
-          renderTopToolbarCustomActions={() => (
-            <Button color="secondary" variant="contained">
+      <DataTable
+        renderTopToolbarCustomActions={() => (
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => setIsOpen(true)}
+          >
             Add New Distributor
-            </Button>
-          )}
-      columns={columns} data={data} />
+          </Button>
+        )}
+        columns={columns}
+        data={data}
+      />
     </>
   );
 };

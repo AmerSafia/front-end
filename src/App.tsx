@@ -1,17 +1,20 @@
 import AppRoutes from "./router";
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme";
+import useCustomTheme from "./hooks/useTheme";
+import { ColorModeContext } from "./context/ColorModeContext";
 type Props = {};
 
 const App = (props: Props) => {
-  return  (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-    <AppRoutes />
-  </ThemeProvider>
-  )
+  const { colorMode, theme } = useCustomTheme();
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppRoutes />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
 };
 
 export default App;

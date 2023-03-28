@@ -2,59 +2,62 @@ import { Button, DialogActions, DialogContent } from "@mui/material";
 import { MRT_ColumnDef } from "material-react-table";
 import DataTable from "../../components/dashboard/common/DataTable";
 import { useState } from "react";
-import { FormContainer, TextFieldElement } from "react-hook-form-mui";
 import Modal from "../../components/dashboard/common/Modal";
+import { FormContainer, TextFieldElement } from "react-hook-form-mui";
 
 type Props = {};
 
-interface SalaryType {
-  employee_id: string;
+interface SalaryPaymentType {
+  salary_id: string;
   amount: number;
-  pay_date: string;
+  payment_date: string;
 }
-const data: SalaryType[] = [
+const data: SalaryPaymentType[] = [
   {
-    employee_id: "test",
-    amount: 900,
-    pay_date: "1/1/2022",
+    salary_id: "test",
+    amount: 322,
+    payment_date: "1/1/2022",
   },
 ];
 const columns = [
   {
-    header: "employee_id",
-    accessorKey: "employee_id",
+    header: "salary_id",
+    accessorKey: "salary_id",
   },
   {
     header: "Amount",
     accessorKey: "amount",
   },
   {
-    header: "Pay Date",
-    accessorKey: "pay_date",
+    header: "payment Date",
+    accessorKey: "payment_date",
   },
-] as Array<MRT_ColumnDef<SalaryType>>;
-const Salary = (props: Props) => {
+] as Array<MRT_ColumnDef<SalaryPaymentType>>;
+const SalaryPayment = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const formData = (data: SalaryType) => {
+  const formData = (data: SalaryPaymentType) => {
     console.log(data);
 
     // data;
   };
+
   return (
     <>
       <Modal
-        title="Add New Salary"
+        title="Add New Payment"
         isOpen={isOpen}
         close={() => {
           setIsOpen(false);
         }}
       >
         <DialogContent>
-          <FormContainer onSuccess={(data: SalaryType) => formData(data)}>
+          <FormContainer
+            onSuccess={(data: SalaryPaymentType) => formData(data)}
+          >
             <TextFieldElement
-              name="employee_id"
-              label="employee_id"
+              name="salary_id"
+              label="salary id"
               required
               fullWidth
               sx={{ my: "1rem" }}
@@ -69,8 +72,8 @@ const Salary = (props: Props) => {
               sx={{ my: "1rem" }}
             />
             <TextFieldElement
-              name="pay_date"
-              label="pay_date"
+              name="payment_date"
+              label="payment date"
               required
               fullWidth
               sx={{ my: "1rem" }}
@@ -98,7 +101,7 @@ const Salary = (props: Props) => {
             variant="contained"
             onClick={() => setIsOpen(true)}
           >
-            Add New Salary
+            Add New Payment
           </Button>
         )}
         columns={columns}
@@ -108,4 +111,4 @@ const Salary = (props: Props) => {
   );
 };
 
-export default Salary;
+export default SalaryPayment;

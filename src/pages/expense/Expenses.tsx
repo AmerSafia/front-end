@@ -1,6 +1,9 @@
 import DataTable from "../../components/dashboard/common/DataTable";
-import { Button } from "@mui/material";
+import { Button, DialogActions, DialogContent } from "@mui/material";
 import { MRT_ColumnDef } from "material-react-table";
+import Modal from "../../components/dashboard/common/Modal";
+import { FormContainer, TextFieldElement } from "react-hook-form-mui";
+import { useState } from "react";
 
 type Props = {};
 
@@ -39,11 +42,79 @@ const columns = [
 ] as Array<MRT_ColumnDef<ExpensesInterFace>>;
 
 const Expenses = (props: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const formData = (data: ExpensesInterFace) => {
+    console.log(data);
+
+    // data;
+  };
+
   return (
     <>
+      <Modal
+        title="Add New Expenses"
+        isOpen={isOpen}
+        close={() => {
+          setIsOpen(false);
+        }}
+      >
+        <DialogContent>
+          <FormContainer
+            onSuccess={(data: ExpensesInterFace) => formData(data)}
+          >
+            <TextFieldElement
+              name="expense_type_id"
+              label="expense_type_id"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+
+            <TextFieldElement
+              name="amount"
+              label="amount"
+              type="number"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <TextFieldElement
+              name="expense_date"
+              label="expense date"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <TextFieldElement
+              name="description"
+              label="description"
+              required
+              fullWidth
+              sx={{ my: "1rem" }}
+            />
+            <DialogActions>
+              <Button color="secondary" variant="contained" type="submit">
+                Save
+              </Button>
+              <Button
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </FormContainer>
+        </DialogContent>
+      </Modal>
       <DataTable
         renderTopToolbarCustomActions={() => (
-          <Button color="secondary" variant="contained">
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => setIsOpen(true)}
+          >
             Add New Expenses
           </Button>
         )}
